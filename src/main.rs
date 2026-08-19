@@ -9,6 +9,8 @@ use regex::Regex;
 use zip::read::ZipArchive;
 use zip::{ZipWriter, write::SimpleFileOptions};
 
+const APP_NAME: &str = "resume2";
+
 #[derive(Parser)]
 #[command(name = "resume2")]
 struct Cli {
@@ -106,13 +108,13 @@ impl SkillCategory {
 }
 
 fn get_config() -> Config {
-    ConfigHolder::new(AppData, "config")
+    ConfigHolder::new(AppData, APP_NAME, "config")
         .get_or_create()
         .expect("Failed to get config")
 }
 
 fn save_config(config: &Config) -> Result<()> {
-    ConfigHolder::new(AppData, "config").write(config)
+    ConfigHolder::new(AppData, APP_NAME, "config").write(config)
 }
 
 fn get_resume_docx_path() -> Result<PathBuf> {
